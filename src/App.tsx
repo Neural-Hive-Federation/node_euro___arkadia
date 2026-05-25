@@ -311,7 +311,7 @@ const App = () => {
         </footer>
 
         <footer className="py-12 border-t border-white/10 bg-[#020202] text-slate-400">
-          <div className="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
+          <div className="max-w-6xl mx-auto px-8 flex flex-col md:flex-row justify-between items-center gap-6">
             <div className="flex flex-col items-center md:items-start">
               <span className="font-bold text-white tracking-wider">EURO - ARKADIA</span>
               <p className="text-[10px] text-slate-600 mt-1">&copy; 2026 Todos los derechos reservados.</p>

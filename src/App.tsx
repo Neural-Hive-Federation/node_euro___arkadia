@@ -1,7 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { SalesAdvisorWidget } from './components/SalesAdvisorWidget';
-import { NeuralFeed } from './components/NeuralFeed';
 
 const App = () => {
   const accentColor = "#f97316";
@@ -43,6 +42,29 @@ const App = () => {
       <polyline points="12 5 19 12 12 19" />
     </svg>
   );
+
+  const NeuralFeed = ({ nodeId }: { nodeId: string }) => {
+    return (
+      <div className="fixed bottom-6 left-6 z-50 bg-black/80 backdrop-blur-md border border-white/10 rounded-2xl p-4 max-w-xs">
+        <div className="flex items-center gap-2 mb-3">
+          <div className="w-6 h-6 rounded-full bg-gradient-to-br from-orange-500 to-red-500" />
+          <span className="text-xs font-bold uppercase tracking-widest">Neural Feed</span>
+        </div>
+        <div className="space-y-3">
+          {posts.slice(0, 2).map(post => (
+            <div key={post.id} className="border-b border-white/10 pb-3 last:border-0 last:pb-0">
+              <h4 className="text-xs font-bold uppercase tracking-wider mb-1">{post.title}</h4>
+              <p className="text-xs text-gray-400 mb-2">{post.content.substring(0, 60)}...</p>
+              <div className="flex justify-between items-center">
+                <span className="text-[10px] text-gray-500 uppercase tracking-widest">{post.date}</span>
+                <button className="text-[10px] font-bold text-orange-500 uppercase tracking-widest">Ver</button>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  };
 
   return (
     <div className="min-h-screen bg-black text-white font-sans selection:bg-pink-500/30">
@@ -298,9 +320,9 @@ const App = () => {
         >
           <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>
         </a>
-      </div>
 
-      <NeuralFeed nodeId="92991cb0-fc50-48df-9bfd-1c1ab1042239" />
+        <NeuralFeed nodeId="92991cb0-fc50-48df-9bfd-1c1ab1042239" />
+      </div>
     </div>
   );
 };

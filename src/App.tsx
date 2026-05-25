@@ -1,6 +1,77 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { SalesAdvisorWidget } from './components/SalesAdvisorWidget';
+
+interface SalesAdvisorWidgetProps {
+  nodeName: string;
+  adn: string;
+}
+
+const SalesAdvisorWidget: React.FC<SalesAdvisorWidgetProps> = ({ nodeName, adn }) => {
+  const [isOpen, setIsOpen] = React.useState(false);
+  const adnData = JSON.parse(adn);
+
+  return (
+    <div className="fixed bottom-6 left-6 z-50">
+      <motion.div
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ delay: 0.5 }}
+        className="bg-black/80 backdrop-blur-xl border border-white/10 rounded-2xl p-4 shadow-2xl max-w-sm"
+      >
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl flex items-center justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            </svg>
+          </div>
+          <div>
+            <h3 className="font-bold text-white">Asesor de {nodeName}</h3>
+            <p className="text-xs text-gray-400">Inteligencia Neural Activada</p>
+          </div>
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="ml-auto p-1 hover:bg-white/10 rounded-full transition-colors"
+          >
+            {isOpen ? (
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="18 15 12 9 6 15"/>
+              </svg>
+            ) : (
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="6 9 12 15 18 9"/>
+              </svg>
+            )}
+          </button>
+        </div>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            className="mt-4 overflow-hidden"
+          >
+            <div className="space-y-3 text-xs text-gray-300">
+              <div>
+                <span className="font-bold text-white uppercase tracking-wider">Rating:</span>
+                <span className="ml-2">{adnData.rating} ⭐</span>
+              </div>
+              <div>
+                <span className="font-bold text-white uppercase tracking-wider">Ubicación:</span>
+                <p className="mt-1">{adnData.report.split('Ubicación:')[1]?.split('\n')[0]}</p>
+              </div>
+              <div>
+                <span className="font-bold text-white uppercase tracking-wider">Oportunidad:</span>
+                <span className="ml-2">{adnData.opportunity_score}/100</span>
+              </div>
+              <button className="w-full py-2 bg-purple-600 hover:bg-purple-500 text-white text-xs font-bold uppercase tracking-wider rounded-lg transition-colors">
+                Ver Expediente Completo
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </motion.div>
+    </div>
+  );
+};
 
 const NeuralFeed = ({ nodeId }: { nodeId: string }) => {
   const feedItems = [

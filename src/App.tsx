@@ -1,7 +1,63 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { SalesAdvisorWidget } from './components/SalesAdvisorWidget';
-import { NeuralFeed } from './components/NeuralFeed';
+
+const NeuralFeed = ({ nodeId }: { nodeId: string }) => {
+  const feedItems = [
+    {
+      id: 1,
+      type: 'update',
+      title: 'Nueva sección de productos orgánicos',
+      content: 'Hemos ampliado nuestra sección de alimentos orgánicos con más de 50 nuevos productos certificados.',
+      date: '25 de mayo de 2026',
+      color: 'bg-green-500/10 border-green-500/20'
+    },
+    {
+      id: 2,
+      type: 'event',
+      title: 'Taller de cocina gourmet',
+      content: 'Únete a nuestro taller de cocina con chefs locales este sábado a las 3 PM.',
+      date: '26 de mayo de 2026',
+      color: 'bg-purple-500/10 border-purple-500/20'
+    },
+    {
+      id: 3,
+      type: 'promo',
+      title: 'Descuentos en pescados frescos',
+      content: 'Esta semana 20% de descuento en toda nuestra selección de pescados y mariscos.',
+      date: '27 de mayo de 2026',
+      color: 'bg-blue-500/10 border-blue-500/20'
+    }
+  ];
+
+  return (
+    <section className="py-20 px-8 max-w-6xl mx-auto">
+      <div className="flex items-center gap-4 mb-12">
+        <div className="h-1 w-12 rounded-full bg-orange-500" />
+        <h2 className="text-3xl font-black uppercase tracking-tighter italic">Neural <span className="text-orange-500">Feed</span></h2>
+      </div>
+      <div className="space-y-6">
+        {feedItems.map((item) => (
+          <motion.div
+            key={item.id}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            className={`border ${item.color} rounded-2xl p-6 hover:border-white/20 transition-all`}
+          >
+            <div className="flex justify-between items-start mb-3">
+              <span className="px-3 py-1 bg-white/10 rounded-full text-xs font-bold uppercase tracking-widest">
+                {item.type}
+              </span>
+              <span className="text-xs text-gray-500 uppercase tracking-widest">{item.date}</span>
+            </div>
+            <h3 className="text-xl font-bold mb-2">{item.title}</h3>
+            <p className="text-gray-400 text-sm leading-relaxed">{item.content}</p>
+          </motion.div>
+        ))}
+      </div>
+    </section>
+  );
+};
 
 const App = () => {
   const posts = [
